@@ -16,6 +16,7 @@ import android.widget.Toast;
  * status bar and navigation/system bar) with user interaction.
  */
 public class FullscreenActivity extends AppCompatActivity {
+    private FrameLayout mContentView;
     private static final int REQUEST_CODE_PERMISSION = 1;
     // Storage Permissions
     private static String[] PERMISSIONS_REQ = {
