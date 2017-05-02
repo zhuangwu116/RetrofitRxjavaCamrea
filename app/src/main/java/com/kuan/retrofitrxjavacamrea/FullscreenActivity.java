@@ -1,27 +1,76 @@
 package com.kuan.retrofitrxjavacamrea;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class FullscreenActivity extends AppCompatActivity {
-    private FrameLayout mContentView;
+    private static final int REQUEST_CODE_PERMISSION = 1;
+    // Storage Permissions
+    private static String[] PERMISSIONS_REQ = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
-        mContentView=(FrameLayout)findViewById(R.id.mContentView);
-        mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        boolean avialbe_permission = true;
+        // For API 23+ you need to request the read/write permissions even if they are already in your manifest.
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion >= Build.VERSION_CODES.M ) {
+            avialbe_permission = verifyPermissions(this);
+        }
+        if (avialbe_permission && null == savedInstanceState) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, Camera2BasicFragment.newInstance())
+                    .commit();
+        }
+
+    }
+    private static boolean verifyPermissions(Activity activity) {
+        // Check if we have write permission
+        int write_permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int read_persmission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int camera_permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
+
+        if (write_permission != PackageManager.PERMISSION_GRANTED ||
+                read_persmission != PackageManager.PERMISSION_GRANTED ||
+                camera_permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_REQ,
+                    REQUEST_CODE_PERMISSION
+            );
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        try {
+            // Restart it after granting permission
+            if (requestCode == REQUEST_CODE_PERMISSION) {
+                finish();
+                startActivity(getIntent());
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
+        }
     }
 
 }
