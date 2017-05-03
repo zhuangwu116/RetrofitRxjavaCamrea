@@ -25,18 +25,17 @@
             android:id="@+id/picture_scene"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="120dp"
-            android:text="@string/picture" />
+            android:layout_gravity="center_horizontal"
+            android:text="网络设置" />
 
         <Button
             style="@style/Widget.AppCompat.Button.Borderless"
             android:id="@+id/picture_detect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="10dp"
-            android:text="@string/picture_detect" />
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:text="拍照识别" />
 
         <ImageButton
             android:id="@+id/info"
@@ -44,7 +43,7 @@
             style="@android:style/Widget.Material.Light.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|bottom"
+            android:layout_gravity="center_horizontal|bottom"
             android:src="@mipmap/ic_action_info" />
 
     </FrameLayout>
