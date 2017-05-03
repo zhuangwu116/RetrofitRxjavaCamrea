@@ -15,7 +15,7 @@ public class UploadActivity extends AppCompatActivity implements UploadTasksCont
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uploadtasks);
-
+        new UploadTasksPresenter(this);
     }
 
     @Override
