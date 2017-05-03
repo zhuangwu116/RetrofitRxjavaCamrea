@@ -4,19 +4,22 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import java.io.File;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class FullscreenActivity extends AppCompatActivity {
-    private FrameLayout mContentView;
+    private static String BASE_FILE_PATH="";
+    public static String PICTURE_FILE_PATH="";
     private static final int REQUEST_CODE_PERMISSION = 1;
     // Storage Permissions
     private static String[] PERMISSIONS_REQ = {
@@ -35,6 +38,20 @@ public class FullscreenActivity extends AppCompatActivity {
             avialbe_permission = verifyPermissions(this);
         }
         if (avialbe_permission && null == savedInstanceState) {
+            if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                BASE_FILE_PATH = Environment.getExternalStorageDirectory().toString()+"/com.kuan.application/camera";
+            }else{
+                BASE_FILE_PATH = Environment.getDataDirectory().toString()+"/com.kuan.application/camera";
+            }
+            File file=new File(BASE_FILE_PATH);
+            if(!file.exists()){
+                file.mkdirs();
+            }
+            File f=new File(BASE_FILE_PATH+"/picture");
+            if(!f.exists()){
+                f.mkdirs();
+                PICTURE_FILE_PATH=f.getAbsolutePath();
+            }
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, Camera2BasicFragment.newInstance())
                     .commit();
