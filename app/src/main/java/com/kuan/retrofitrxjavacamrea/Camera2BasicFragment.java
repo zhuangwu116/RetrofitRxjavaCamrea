@@ -395,8 +395,8 @@ public class Camera2BasicFragment extends Fragment
 
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
-        view.findViewById(R.id.picture_scene).setOnClickListener(this);
-        view.findViewById(R.id.picture_detect).setOnClickListener(this);
+        view.findViewById(R.id.btn_network).setOnClickListener(this);
+        view.findViewById(R.id.btn_picture).setOnClickListener(this);
         view.findViewById(R.id.info).setOnClickListener(this);
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
     }
@@ -404,7 +404,6 @@ public class Camera2BasicFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mFile = new File(getActivity().getExternalFilesDir(null), "pic.jpg");
     }
 
     @Override
@@ -810,11 +809,13 @@ public class Camera2BasicFragment extends Fragment
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.picture_scene: {
-                sceneRecognize();
+            case R.id.btn_network: {
+
                 break;
             }
-            case R.id.picture_detect: {
+            case R.id.btn_picture: {
+                String pitureName=System.currentTimeMillis()+".jpg";
+                mFile = new File(FullscreenActivity.PICTURE_FILE_PATH, pitureName);
                 objDetect();
                 break;
             }

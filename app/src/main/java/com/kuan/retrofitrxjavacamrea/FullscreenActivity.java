@@ -49,8 +49,8 @@ public class FullscreenActivity extends AppCompatActivity {
             File f=new File(BASE_FILE_PATH+"/picture");
             if(!f.exists()){
                 f.mkdirs();
-                PICTURE_FILE_PATH=f.getAbsolutePath();
             }
+            PICTURE_FILE_PATH=f.getAbsolutePath();
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, Camera2BasicFragment.newInstance())
                     .commit();
