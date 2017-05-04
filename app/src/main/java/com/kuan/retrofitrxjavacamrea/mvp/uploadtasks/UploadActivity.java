@@ -24,4 +24,14 @@ public class UploadActivity extends AppCompatActivity implements UploadTasksCont
             mPresenter=presenter;
         }
     }
+
+    @Override
+    public void Success(String data) {
+
+    }
+
+    @Override
+    public void Error() {
+
+    }
 }

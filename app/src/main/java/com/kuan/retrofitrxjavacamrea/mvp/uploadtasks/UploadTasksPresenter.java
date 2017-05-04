@@ -17,6 +17,24 @@
 package com.kuan.retrofitrxjavacamrea.mvp.uploadtasks;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.kuan.retrofitrxjavacamrea.httpservice.UploadImageService;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 public class UploadTasksPresenter implements UploadTasksContract.Presenter {
@@ -38,4 +56,44 @@ public class UploadTasksPresenter implements UploadTasksContract.Presenter {
 
     }
 
+    @Override
+    public void uploadImage(String url, List<String> paths) {
+        int i=0;
+        Map<String,MultipartBody.Part> mapFile=new HashMap<>();
+        for(String path:paths){
+            File file=new File(path);
+            RequestBody requestFile =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("files", file.getName(), requestFile);
+            mapFile.put(String.valueOf(i),filePart);
+            i++;
+        }
+        UploadImageService service=RxjavaRetfit(url).create(UploadImageService.class);
+       service.uploadImage(mapFile)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+               .subscribe(new Observer<String>() {
+                   @Override
+                   public void onCompleted() {
+
+                   }
+
+                   @Override
+                   public void onError(Throwable throwable) {
+                       mTasksView.Error();
+                   }
+
+                   @Override
+                   public void onNext(String s) {
+                       mTasksView.Success(s);
+                   }
+               });
+    }
+    public Retrofit RxjavaRetfit(String url){
+              return new Retrofit.Builder()
+                      .baseUrl(url)
+                      .addConverterFactory(ScalarsConverterFactory.create())
+                      .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                      .build();
+    }
 }

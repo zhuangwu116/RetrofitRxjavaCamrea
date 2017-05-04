@@ -30,10 +30,11 @@ import java.util.List;
 public interface UploadTasksContract {
 
     interface View extends BaseView<Presenter> {
-
+        public void Success(String data);
+        public void Error();
     }
 
     interface Presenter extends BasePresenter {
-
+        public void uploadImage(String url,List<String> paths);
     }
 }
