@@ -18,10 +18,7 @@ package com.kuan.retrofitrxjavacamrea;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,7 +45,9 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.v13.app.FragmentCompat;
-import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -58,6 +57,8 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.kuan.retrofitrxjavacamrea.widget.NetWorkSettingDialog;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -430,10 +431,10 @@ public class Camera2BasicFragment extends Fragment
     }
 
     private void requestCameraPermission() {
-        if (FragmentCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+        if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
             new ConfirmationDialog().show(getChildFragmentManager(), FRAGMENT_DIALOG);
         } else {
-            FragmentCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+            requestPermissions(new String[]{Manifest.permission.CAMERA},
                     REQUEST_CAMERA_PERMISSION);
         }
     }
@@ -808,7 +809,8 @@ public class Camera2BasicFragment extends Fragment
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_network: {
-
+                NetWorkSettingDialog dialog=new NetWorkSettingDialog();
+               dialog.show(getChildFragmentManager(),"networksettingdialog");
                 break;
             }
             case R.id.btn_picture: {
@@ -934,8 +936,7 @@ public class Camera2BasicFragment extends Fragment
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            FragmentCompat.requestPermissions(parent,
-                                    new String[]{Manifest.permission.CAMERA},
+                            requestPermissions(new String[]{Manifest.permission.CAMERA},
                                     REQUEST_CAMERA_PERMISSION);
                         }
                     })
