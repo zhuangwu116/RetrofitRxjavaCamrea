@@ -16,13 +16,9 @@
 
 package com.kuan.retrofitrxjavacamrea.mvp.uploadtasks;
 
-import android.support.annotation.NonNull;
-
-
 import com.kuan.retrofitrxjavacamrea.mvp.BasePresenter;
 import com.kuan.retrofitrxjavacamrea.mvp.BaseView;
 
-import java.util.List;
 
 /**
  * This specifies the contract between the view and the presenter.
@@ -35,6 +31,6 @@ public interface UploadTasksContract {
     }
 
     interface Presenter extends BasePresenter {
-        public void uploadImage(String url,List<String> paths);
+        public void uploadImage(String url,String paths);
     }
 }

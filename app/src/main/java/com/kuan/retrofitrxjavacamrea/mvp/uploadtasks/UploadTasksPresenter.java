@@ -28,6 +28,7 @@ import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -58,19 +59,19 @@ public class UploadTasksPresenter implements UploadTasksContract.Presenter {
     }
 
     @Override
-    public void uploadImage(String url, List<String> paths) {
-        int i=0;
-        Map<String,MultipartBody.Part> mapFile=new HashMap<>();
-        for(String path:paths){
-            File file=new File(path);
-            RequestBody requestFile =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MultipartBody.Part filePart = MultipartBody.Part.createFormData("files", file.getName(), requestFile);
-            mapFile.put(String.valueOf(i),filePart);
-            i++;
-        }
+    public void uploadImage(String url, String path) {
+        File file=new File(path);
+        RequestBody requestFile =               // 根据文件格式封装文件
+                RequestBody.create(MediaType.parse("image/jpg"), file);
+
+        // 初始化请求体对象，设置Content-Type以及文件数据流
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)            // multipart/form-data
+                .addFormDataPart("imagefile", file.getName(), requestFile)
+                .build();
+
         UploadImageService service=RxjavaRetfit(url).create(UploadImageService.class);
-       service.uploadImage(mapFile)
+       service.uploadImage(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                .subscribe(new Subscriber<String>() {
