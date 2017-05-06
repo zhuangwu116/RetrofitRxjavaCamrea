@@ -763,10 +763,8 @@ public class Camera2BasicFragment extends Fragment
                     unlockFocus();
 
                     Intent intent = null;
-                    if (mAction == VisionAction.ObjDetect) {
+                    if (mAction == VisionAction.ObjDetect||mAction == VisionAction.SceneRecognition) {
 //                        intent = new Intent(getActivity(), ObjectDetectActivity.class);
-                    } else if (mAction == VisionAction.SceneRecognition) {
-//                        intent = new Intent(getActivity(), SceneRecognitionActivity.class);
                     }
                     if (intent != null) {
                         Bundle bundle = new Bundle();
