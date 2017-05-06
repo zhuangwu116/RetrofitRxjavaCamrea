@@ -58,7 +58,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.kuan.retrofitrxjavacamrea.mvp.uploadtasks.UploadActivity;
+import com.kuan.retrofitrxjavacamrea.utils.NetWorkIs;
 import com.kuan.retrofitrxjavacamrea.widget.NetWorkSettingDialog;
+import com.kuan.retrofitrxjavacamrea.widget.NetWorkStatusDialog;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -765,7 +768,7 @@ public class Camera2BasicFragment extends Fragment
 
                     Intent intent = null;
                     if (mAction == VisionAction.ObjDetect||mAction == VisionAction.SceneRecognition) {
-//                        intent = new Intent(getActivity(), ObjectDetectActivity.class);
+                        intent = new Intent(getActivity(), UploadActivity.class);
                     }
                     if (intent != null) {
                         Bundle bundle = new Bundle();
@@ -814,6 +817,11 @@ public class Camera2BasicFragment extends Fragment
                 break;
             }
             case R.id.btn_picture: {
+                if(!NetWorkIs.isNetConnect(getActivity())){
+                    NetWorkStatusDialog dialog=new NetWorkStatusDialog();
+                    dialog.show(getChildFragmentManager(),"isnetworkdialog");
+                    return;
+                }
                 String pitureName=System.currentTimeMillis()+".jpg";
                 mFile = new File(FullscreenActivity.PICTURE_FILE_PATH, pitureName);
                 objDetect();

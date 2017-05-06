@@ -33,6 +33,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import rx.Observer;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -72,7 +73,7 @@ public class UploadTasksPresenter implements UploadTasksContract.Presenter {
        service.uploadImage(mapFile)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-               .subscribe(new Observer<String>() {
+               .subscribe(new Subscriber<String>() {
                    @Override
                    public void onCompleted() {
 
@@ -80,12 +81,12 @@ public class UploadTasksPresenter implements UploadTasksContract.Presenter {
 
                    @Override
                    public void onError(Throwable throwable) {
-                       mTasksView.Error();
+
                    }
 
                    @Override
                    public void onNext(String s) {
-                       mTasksView.Success(s);
+
                    }
                });
     }
