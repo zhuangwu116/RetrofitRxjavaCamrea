@@ -19,22 +19,21 @@ package com.kuan.retrofitrxjavacamrea.mvp.uploadtasks;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+
+import com.kuan.retrofitrxjavacamrea.bean.VisionDetRet;
 import com.kuan.retrofitrxjavacamrea.httpservice.UploadImageService;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import rx.Observer;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -61,20 +60,14 @@ public class UploadTasksPresenter implements UploadTasksContract.Presenter {
     @Override
     public void uploadImage(String url, String path) {
         File file=new File(path);
-        RequestBody requestFile =               // 根据文件格式封装文件
-                RequestBody.create(MediaType.parse("image/jpg"), file);
-
-        // 初始化请求体对象，设置Content-Type以及文件数据流
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)            // multipart/form-data
-                .addFormDataPart("imagefile", file.getName(), requestFile)
-                .build();
-
+        MultipartBody.Builder requestBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        requestBuilder.addFormDataPart("imagefile",file.getName(),RequestBody.create(MediaType.parse("image/*"), file));
         UploadImageService service=RxjavaRetfit(url).create(UploadImageService.class);
-       service.uploadImage(requestBody)
+        Log.i("uploadImage","uploadImage");
+        service.uploadImage(requestBuilder.build())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-               .subscribe(new Subscriber<String>() {
+               .subscribe(new Observer<VisionDetRet>() {
                    @Override
                    public void onCompleted() {
 
@@ -82,19 +75,19 @@ public class UploadTasksPresenter implements UploadTasksContract.Presenter {
 
                    @Override
                    public void onError(Throwable throwable) {
-
+                       mTasksView.Error();
                    }
 
                    @Override
-                   public void onNext(String s) {
-
+                   public void onNext(VisionDetRet s) {
+                       mTasksView.Success(s);
                    }
                });
     }
     public Retrofit RxjavaRetfit(String url){
               return new Retrofit.Builder()
                       .baseUrl(url)
-                      .addConverterFactory(ScalarsConverterFactory.create())
+                      .addConverterFactory(GsonConverterFactory.create())
                       .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                       .build();
     }

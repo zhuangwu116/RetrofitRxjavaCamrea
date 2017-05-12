@@ -7,9 +7,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
-
-import com.kuan.retrofitrxjavacamrea.R;
-
 /**
  * Created by zhuangwu on 17-5-6.
  */

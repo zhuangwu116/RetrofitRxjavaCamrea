@@ -16,6 +16,7 @@
 
 package com.kuan.retrofitrxjavacamrea.mvp.uploadtasks;
 
+import com.kuan.retrofitrxjavacamrea.bean.VisionDetRet;
 import com.kuan.retrofitrxjavacamrea.mvp.BasePresenter;
 import com.kuan.retrofitrxjavacamrea.mvp.BaseView;
 
@@ -26,7 +27,7 @@ import com.kuan.retrofitrxjavacamrea.mvp.BaseView;
 public interface UploadTasksContract {
 
     interface View extends BaseView<Presenter> {
-        public void Success(String data);
+        public void Success(VisionDetRet data);
         public void Error();
     }
 
