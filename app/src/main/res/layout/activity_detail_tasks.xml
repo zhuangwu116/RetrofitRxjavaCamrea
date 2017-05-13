@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/detail_line_margin_top"
+                android:id="@+id/line_tp1"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textColor="@color/detail_tp_bt"
+                    android:textSize="@dimen/detail_tp_bt"
+                    android:text="图片:"
+                    android:layout_marginLeft="@dimen/detali_tp_tv_left"
+                    android:layout_marginRight="@dimen/detali_tp_tv_right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_marginTop="@dimen/tp_tv_margin_top"
+                    android:id="@+id/iv_tp1"
+                    android:layout_width="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_height="240dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="@dimen/detail_line_margin_top"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/detail_line_margin_left"
+                android:layout_marginRight="@dimen/detail_line_margin_right"
+                android:id="@+id/line_mc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="名称:"
+                    android:textColor="@color/detail_nr_bt"
+                    android:textSize="@dimen/detail_wz_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginTop="@dimen/detail_wz_nr_top"
+                    android:textColor="@color/detail_nr"
+                    android:textSize="@dimen/detail_wz_nr"
+                    android:id="@+id/tv_mc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="@dimen/detail_line_margin_top"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/detail_line_margin_left"
+                android:layout_marginRight="@dimen/detail_line_margin_right"
+                android:id="@+id/line_ms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="详细描述:"
+                    android:textColor="@color/detail_nr_bt"
+                    android:textSize="@dimen/detail_wz_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginTop="@dimen/detail_wz_nr_top"
+                    android:textColor="@color/detail_nr"
+                    android:textSize="@dimen/detail_wz_nr"
+                    android:id="@+id/tv_ms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="@dimen/detail_line_margin_top"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/detail_line_margin_left"
+                android:layout_marginRight="@dimen/detail_line_margin_right"
+                android:id="@+id/line_czcl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="处理策略:"
+                    android:textColor="@color/detail_nr_bt"
+                    android:textSize="@dimen/detail_wz_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginTop="@dimen/detail_wz_nr_top"
+                    android:textColor="@color/detail_nr"
+                    android:textSize="@dimen/detail_wz_nr"
+                    android:id="@+id/tv_czcl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+    <TextView
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:id="@+id/return_btn"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:text="返回"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="56dp" />
+</LinearLayout>

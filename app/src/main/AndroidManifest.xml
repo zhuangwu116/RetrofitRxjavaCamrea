@@ -32,16 +32,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:name=".mvp.uploadtasks.UploadActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
+        <activity android:name=".mvp.details.DetailTasksActivity"></activity>
     </application>
 
 </manifest>

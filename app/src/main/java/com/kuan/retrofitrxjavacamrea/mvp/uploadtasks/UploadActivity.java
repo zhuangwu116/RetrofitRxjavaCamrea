@@ -1,5 +1,6 @@
 package com.kuan.retrofitrxjavacamrea.mvp.uploadtasks;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -19,7 +20,11 @@ import com.kuan.retrofitrxjavacamrea.BaseActivity;
 import com.kuan.retrofitrxjavacamrea.Camera2BasicFragment;
 import com.kuan.retrofitrxjavacamrea.R;
 import com.kuan.retrofitrxjavacamrea.bean.VisionDetRet;
+import com.kuan.retrofitrxjavacamrea.mvp.details.DetailTasksActivity;
+import com.kuan.retrofitrxjavacamrea.utils.NetWorkIs;
 import com.kuan.retrofitrxjavacamrea.utils.SharedPreferencesUtil;
+import com.kuan.retrofitrxjavacamrea.widget.NetWorkStatusDialog;
+
 public class UploadActivity extends BaseActivity implements UploadTasksContract.View,OnClickItemsListener{
   private AppCompatImageView imageView;
     private UploadTasksContract.Presenter mPresenter;
@@ -65,7 +70,6 @@ public class UploadActivity extends BaseActivity implements UploadTasksContract.
        }
         new UploadTasksPresenter(this);
         String url = String.format("http://%s:%s", ip, port);
-        Log.i("zhuangwu",url);
         showProgressDialog("正在识别请稍后...");
         mPresenter.uploadImage(url,path);
     }
@@ -106,6 +110,13 @@ public class UploadActivity extends BaseActivity implements UploadTasksContract.
 
     @Override
     public void onClickItemsId(String id) {
-
+        if(!NetWorkIs.isNetConnect(this)){
+            NetWorkStatusDialog dialog=new NetWorkStatusDialog();
+            dialog.show(getSupportFragmentManager(),"dialog");
+            return;
+        }
+        Intent intent=new Intent(this,DetailTasksActivity.class);
+        intent.putExtra("id",id);
+        startActivity(intent);
     }
 }

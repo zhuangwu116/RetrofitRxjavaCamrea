@@ -37,4 +37,5 @@ dependencies {
     compile "com.android.support:recyclerview-v7:${rootProject.ext.androidSupportSdkVersion}"
     compile "com.android.support:support-v13:${rootProject.ext.androidSupportSdkVersion}"
     compile "com.android.support:percent:${rootProject.ext.androidSupportSdkVersion}"
+    compile 'com.android.support.constraint:constraint-layout:+'
 }

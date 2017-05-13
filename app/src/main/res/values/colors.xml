@@ -5,4 +5,11 @@
     <color name="colorAccent">#FF4081</color>
     <color name="control_background">#cc4285f4</color>
     <color name="black_overlay">#66000000</color>
+
+    <!--详情页图片标题字体颜色-->
+    <color name="detail_tp_bt">@android:color/black</color>
+    <!--详情内容标题字体颜色-->
+    <color name="detail_nr_bt">@android:color/black</color>
+    <!--详情内容字体颜色-->
+    <color name="detail_nr">@android:color/black</color>
 </resources>

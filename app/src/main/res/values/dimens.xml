@@ -2,4 +2,22 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+
+    <!--Linelayout顶部距离-->
+    <dimen name="detail_line_margin_top">16dp</dimen>
+    <dimen name="detail_line_margin_left">16dp</dimen>
+    <dimen name="detail_line_margin_right">16dp</dimen>
+    <!--图片标题左右距离-->
+    <dimen name="detali_tp_tv_left">16dp</dimen>
+    <dimen name="detali_tp_tv_right">16dp</dimen>
+    <!--图片标题顶部距离-->
+    <dimen name="tp_tv_margin_top">8dp</dimen>
+    <!--文字距顶部距离-->
+    <dimen name="detail_wz_nr_top">8dp</dimen>
+    <!--图片标题字体大小-->
+    <dimen name="detail_tp_bt">16sp</dimen>
+    <!--文字标题字体大小-->
+    <dimen name="detail_wz_bt">16sp</dimen>
+    <!--文字内容字体大小-->
+    <dimen name="detail_wz_nr">12sp</dimen>
 </resources>

@@ -63,7 +63,6 @@ public class UploadTasksPresenter implements UploadTasksContract.Presenter {
         MultipartBody.Builder requestBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         requestBuilder.addFormDataPart("imagefile",file.getName(),RequestBody.create(MediaType.parse("image/*"), file));
         UploadImageService service=RxjavaRetfit(url).create(UploadImageService.class);
-        Log.i("uploadImage","uploadImage");
         service.uploadImage(requestBuilder.build())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
