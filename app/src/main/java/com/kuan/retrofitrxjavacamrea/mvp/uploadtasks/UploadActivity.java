@@ -110,6 +110,7 @@ public class UploadActivity extends BaseActivity implements UploadTasksContract.
 
     @Override
     public void onClickItemsId(String id) {
+        Log.i("zhuangwu","zhuangwu_id:"+id);
         if(!NetWorkIs.isNetConnect(this)){
             NetWorkStatusDialog dialog=new NetWorkStatusDialog();
             dialog.show(getSupportFragmentManager(),"dialog");

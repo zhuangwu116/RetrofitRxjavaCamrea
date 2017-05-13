@@ -8,7 +8,10 @@ import android.widget.Toast;
 
 import com.kuan.retrofitrxjavacamrea.BaseActivity;
 import com.kuan.retrofitrxjavacamrea.R;
+import com.kuan.retrofitrxjavacamrea.bean.DetailsInfoBean;
 import com.kuan.retrofitrxjavacamrea.utils.SharedPreferencesUtil;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 public class DetailTasksActivity extends BaseActivity implements DetailTasksContract.View{
     private AppCompatImageView imageView;
@@ -17,6 +20,7 @@ public class DetailTasksActivity extends BaseActivity implements DetailTasksCont
     private TextView clTv;
     private TextView ret_btn;
     private DetailTasksContract.Presenter presenter;
+    private String url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,20 +47,42 @@ public class DetailTasksActivity extends BaseActivity implements DetailTasksCont
             ErrorDialog.newInstance("您没有设置网络,请设置网络IP和端口号").show(getSupportFragmentManager(),"dialog");
             return;
         }
-        String url = String.format("http://%s:%s", ip, port);
+        url = String.format("http://%s:%s", ip, port);
+        new DetailsTasksPresenter(this);
         showProgressDialog("正在请求数据，请稍后...");
-        presenter.getDetailInfos(url,ip);
+        presenter.getDetailInfos(url,id);
     }
 
     @Override
-    public void Success(String data) {
+    public void Success(DetailsInfoBean data) {
         hideProgressDialog();
-        Log.i("zhuangwu",data);
+        if(data==null||data.getBValidate()==0){
+            Toast.makeText(this, "服务器无数据", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(data.getUrl()!=null&&(!data.getUrl().equals(""))){
+            Picasso.with(this)
+                    .load(this.url+"/static/"+data.getUrl())
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .into(imageView);
+        }
+        Log.i("zhuangwu___",data.getMc()+data.getCzcl());
+        if(data.getMc()!=null&&(!data.getMc().equals(""))){
+            mcTv.setText(data.getMc());
+            Log.i("zhuangwu",data.getMc()+data.getCzcl());
+        }
+        if(data.getMs()!=null&&(!data.getMs().equals(""))){
+            msTv.setText(data.getMs());
+        }
+        if(data.getCzcl()!=null&&(!data.getCzcl().equals(""))){
+            clTv.setText(data.getCzcl());
+        }
     }
 
     @Override
     public void Error() {
         hideProgressDialog();
+        ErrorDialog.newInstance("网络出错，关闭重试").show(getSupportFragmentManager(),"dialog");
     }
 
     @Override

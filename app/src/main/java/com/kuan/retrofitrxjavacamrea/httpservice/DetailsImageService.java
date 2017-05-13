@@ -2,6 +2,8 @@ package com.kuan.retrofitrxjavacamrea.httpservice;
 
 
 
+import com.kuan.retrofitrxjavacamrea.bean.DetailsInfoBean;
+
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -12,5 +14,5 @@ import rx.Observable;
 
 public interface DetailsImageService {
     @GET("/query")
-    public Observable<String> getDetailsImageInfo(@Query("id") String id);
+    public Observable<DetailsInfoBean> getDetailsImageInfo(@Query("id") String id);
 }

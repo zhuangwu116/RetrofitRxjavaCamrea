@@ -1,5 +1,6 @@
 package com.kuan.retrofitrxjavacamrea.mvp.details;
 
+import com.kuan.retrofitrxjavacamrea.bean.DetailsInfoBean;
 import com.kuan.retrofitrxjavacamrea.mvp.BasePresenter;
 import com.kuan.retrofitrxjavacamrea.mvp.BaseView;
 
@@ -10,7 +11,7 @@ import com.kuan.retrofitrxjavacamrea.mvp.BaseView;
 
 public interface DetailTasksContract {
     interface View extends BaseView<Presenter> {
-        public void Success(String data);
+        public void Success(DetailsInfoBean data);
         public void Error();
     }
 
